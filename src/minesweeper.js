@@ -25,5 +25,5 @@ board[0][1] = '1';
 // Hard code value B as the bomb.
 board[2][2] = 'B';
 
-// Print hard-coded board.
+// Print hard-coded board to compare.
 printBoard(board);

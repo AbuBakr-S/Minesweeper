@@ -1,15 +1,29 @@
-// Empty game board
-const blankLine = '  |   |  ';
-console.log('This is what an empty board would look like:');
-console.log(blankLine);
-console.log(blankLine);
-console.log(blankLine);
+// Format the Game Board with printBoard()
+const printBoard = board => {
+  console.log('Current Board:');
+  /*
+  The join() method will create + returns a new string by concatenating all
+  of the elements in an array, separated by a pipe.
+  */
+  console.log(board[0].join(' | '));
+  console.log(board[1].join(' | '));
+  console.log(board[2].join(' | '));
+}
 
-// Hard-coding in an active game board
-const guessLine = '1 |   |  ';
-const bombLine = '  | B |  ';
-console.log('This is what a board with a guess and a bomb on it would look like:');
+// Create 3 X 3 board
+const board = [
+  [' ', ' ', ' '],
+  [' ', ' ', ' '],
+  [' ', ' ', ' ']
+];
 
-console.log(guessLine);
-console.log(bombLine);
-console.log(blankLine);
+// Print new board
+printBoard(board);
+
+// Hard code value 1 as player's guess.
+board[0][1] = '1';
+// Hard code value B as the bomb.
+board[2][2] = 'B';
+
+// Print hard-coded board.
+printBoard(board);

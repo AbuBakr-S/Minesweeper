@@ -8,7 +8,7 @@ const printBoard = board => {
   console.log(board[0].join(' | '));
   console.log(board[1].join(' | '));
   console.log(board[2].join(' | '));
-}
+};
 
 // Create 3 X 3 board
 const board = [

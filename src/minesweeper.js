@@ -1,29 +1,36 @@
-// Format the Game Board with printBoard()
-const printBoard = board => {
-  console.log('Current Board:');
-  /*
-  The join() method will create + returns a new string by concatenating all
-  of the elements in an array, separated by a pipe.
-  */
-  console.log(board[0].join(' | '));
-  console.log(board[1].join(' | '));
-  console.log(board[2].join(' | '));
+// Store a func that generates a blank board of a given size to hold the player's guesses
+const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
+  let board = [];   // Overall game board
+  for (let i = 0; i < numberOfRows; i++){
+    let row = [];   // Single row
+    for (let j = 0; j < numberOfColumns; j++){
+      row.push(' ');
+    }
+    board.push(row);
+  }
+  return board;
 }
 
-// Create 3 X 3 board
-const board = [
-  [' ', ' ', ' '],
-  [' ', ' ', ' '],
-  [' ', ' ', ' ']
-];
+// Bomb board
+const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
+  let board = [];   // Overall game board
+  for (let i = 0; i < numberOfRows; i++){
+    let row = [];   // Single row
+    for (let j = 0; j < numberOfColumns; j++){
+      row.push(null);
+    }
+    board.push(row);
+  }
 
-// Print new board
-printBoard(board);
+  let numberOfBombsPlaced = 0;    // Bomb counter
+  while (numberOfBombsPlaced < numberOfBombs){
+    const randomRowIndex = Math.floor(Math.random() * numberOfRows);
+    const randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
 
-// Hard code value 1 as player's guess.
-board[0][1] = '1';
-// Hard code value B as the bomb.
-board[2][2] = 'B';
+    board[randomRowIndex][randomColumnIndex] = 'B';   // Bomb at a random location
+    numberOfBombsPlaced++;
 
-// Print hard-coded board.
-printBoard(board);
+    // IMPORTANT!: The code in your while loop has the potential to place bombs on top of already existing bombs.
+  }
+  return board;
+}

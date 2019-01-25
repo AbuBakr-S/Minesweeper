@@ -53,7 +53,10 @@ const printBoard = board => {
 };
 
 
-const playerBoard = generatePlayerBoard(3, 3);
-const bombBoard = generateBombBoard(3, 2, 2);
+const playerBoard = generatePlayerBoard(3, 4);
+const bombBoard = generateBombBoard(3, 4, 5);
 
+console.log('Player Board: ');
 printBoard(playerBoard);
+console.log('Bomb Board: ');
+printBoard(bombBoard);

@@ -67,6 +67,16 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
 
   // Store the number of bombs adjacent to the flipped tile
   const numberOfBombs = 0;
+
+  // Grab the row and column indices of the tile that a user specifies (0, 2)
+  // We'll have to use that to check for bombs around the tile in the first row and third column)
+
+  // ForEach iterator and callback function to iterate through each array in neighbourOffests
+  neighbourOffests.forEach(offset => {
+    const neighborRowIndex = (rowIndex + offset[0]);
+    const neighborColumnIndex = (rowIndex + offset[0]);
+  });
+
 };
 
 

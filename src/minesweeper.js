@@ -44,6 +44,38 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
 };
 
 
+
+// Display number of adjacent bombs to flipped tile
+// Calculate the number of bombs next to the square at the given rowIndex and columnIndex on the provided bombBoard
+const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
+
+  // Store the pairs of [rowOffset, columnOffset] for adjacent neighbors (Max 8) in array
+  const neighbourOffests = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1]
+  ];
+
+  const numberOfRows = bombBoard.length;
+  // The first element is a row, and the number of entries in a row represents the total number of columns
+  const numberOfColumns = bombBoard[0].length;
+
+  // Store the number of bombs adjacent to the flipped tile
+  const numberOfBombs = 0;
+};
+
+
+
+
+
+
+
+
 /*
 This updated printBoard() function will accept a game board as a parameter,
 iterate through each of its rows, join the individual elements in each row,

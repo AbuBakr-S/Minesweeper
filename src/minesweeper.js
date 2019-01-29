@@ -50,7 +50,7 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
 const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
 
   // Store the pairs of [rowOffset, columnOffset] for adjacent neighbors (Max 8) in array
-  const neighbourOffests = [
+  const neighborOffests = [
     [-1, -1],
     [-1, 0],
     [-1, 1],
@@ -71,20 +71,24 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
   // Grab the row and column indices of the tile that a user specifies (0, 2)
   // We'll have to use that to check for bombs around the tile in the first row and third column)
 
+
+
   // ForEach iterator and callback function to iterate through each array in neighbourOffests
-  neighbourOffests.forEach(offset => {
+  // The purpose of this func is to return the number of bombs in an adjacent neighbour
+  neighborOffests.forEach(offset => {
     const neighborRowIndex = (rowIndex + offset[0]);
     const neighborColumnIndex = (rowIndex + offset[0]);
+
+    // Check if the row and column indices for neighboring tiles are valid
+    if (neighborRowIndex >= 0 && neighborRowIndex <= numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex <= numberOfColumns){
+      if (bombBoard[neighborRowIndex][neighborColumnIndex] === 'B'){
+        // if both conditions are met, increment counter
+        numberOfBombs++;
+      }
+    }
   });
 
 };
-
-
-
-
-
-
-
 
 /*
 This updated printBoard() function will accept a game board as a parameter,

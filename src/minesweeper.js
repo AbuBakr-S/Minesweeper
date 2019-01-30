@@ -15,6 +15,16 @@ const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
 // Bomb board will store all locations of the bombs in the background
 const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
   const board = [];   // Overall game board
@@ -43,6 +53,16 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
 // Display number of adjacent bombs to flipped tile
 // Calculate the number of bombs next to the square at the given rowIndex and columnIndex on the provided bombBoard
 const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
@@ -66,6 +86,11 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
   // Store the number of bombs adjacent to the flipped tile
   let numberOfBombs = 0;
 
+
+
+
+
+
   // Grab the row and column indices of the tile that a user specifies (0, 2)
   // We'll have to use that to check for bombs around the tile in the first row and third column)
 
@@ -87,14 +112,25 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
 };
 
 
+
+
+
+
+
+
+
 // Allow the player to flip a tile and to update that tile accordingly.
 const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
+  // Check if tile is already flipped
   if (playerBoard[rowIndex][columnIndex] !== ' '){
     console.log('This tile has already been flipped!');
     return;
+    // Check if tile is a bomb. If so, place bomb on player board
   } else if (bombBoard[rowIndex][columnIndex] === 'B'){
       playerBoard[rowIndex][columnIndex] === 'B';
+      // Tell player how many bombs are around the tile
   } else {
+      // Create new function called getNumberOfNeighborBombs()
       playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard, rowIndex, columnIndex);
   }
 };

@@ -89,6 +89,22 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
 };
 
 
+// Allow the player to flip a tile and to update that tile accordingly.
+// A. Has the specified tile has already been flipped?
+// B. Does the specified tile have a bomb in it?
+// C. Otherwise, that tile should be updated with the number of neighboring bombs.
+const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
+  if (playerBoard[rowIndex][columnIndex] !== ' '){
+    console.log('This tile has already been flipped!');
+    return;
+  } else if (bombBoard[rowIndex][columnIndex] === 'B'){
+      playerBoard[rowIndex][columnIndex] === 'B';
+  } else {
+      playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard, rowIndex, columnIndex);
+  }
+};
+
+
 
 
 /*

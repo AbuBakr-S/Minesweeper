@@ -31,13 +31,11 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     const randomRowIndex = Math.floor(Math.random() * numberOfRows);
     const randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
 
-    // Check to see if there's already a bomb in a tile
+    // Check to see if there's already a bomb in a random row/col tile
     if (board[randomRowIndex][randomColumnIndex] !== 'B'){
       board[randomRowIndex][randomColumnIndex] = 'B';   // Bomb at a random location. 'B' for readability. True/false would be better.
       numberOfBombsPlaced++;
     }
-
-
     // IMPORTANT!: The code in your while loop has the potential to place bombs on top of already existing bombs.
   }
   return board;
@@ -66,7 +64,7 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
   const numberOfColumns = bombBoard[0].length;
 
   // Store the number of bombs adjacent to the flipped tile
-  const numberOfBombs = 0;
+  let numberOfBombs = 0;
 
   // Grab the row and column indices of the tile that a user specifies (0, 2)
   // We'll have to use that to check for bombs around the tile in the first row and third column)
@@ -119,8 +117,8 @@ const printBoard = board => {
 };
 
 
-const playerBoard = generatePlayerBoard(3, 4);
-const bombBoard = generateBombBoard(3, 4, 5);
+const playerBoard = generatePlayerBoard(3, 3);
+const bombBoard = generateBombBoard(2, 2, 2);
 
 console.log('Player Board: ');
 printBoard(playerBoard);

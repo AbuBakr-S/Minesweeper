@@ -32,7 +32,7 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     const randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
 
     // Check to see if there's already a bomb in a tile
-    if (board[randomRowIndex][randomColumnIndex] !== 'B';){
+    if (board[randomRowIndex][randomColumnIndex] !== 'B'){
       board[randomRowIndex][randomColumnIndex] = 'B';   // Bomb at a random location. 'B' for readability. True/false would be better.
       numberOfBombsPlaced++;
     }
@@ -126,3 +126,9 @@ console.log('Player Board: ');
 printBoard(playerBoard);
 console.log('Bomb Board: ');
 printBoard(bombBoard);
+
+// Flip the tile at location [0,0] on the player board, and also check the bomb board for bombs at the location
+flipTile(playerBoard, bombBoard, 0, 0);
+console.log('Updated Player Board:');
+
+printBoard(playerBoard);

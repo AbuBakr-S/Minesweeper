@@ -71,8 +71,6 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
   // Grab the row and column indices of the tile that a user specifies (0, 2)
   // We'll have to use that to check for bombs around the tile in the first row and third column)
 
-
-
   // ForEach iterator and callback function to iterate through each array in neighbourOffests
   // The purpose of this func is to return the number of bombs in an adjacent neighbour
   neighborOffests.forEach(offset => {
@@ -87,8 +85,11 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
       }
     }
   });
-
+  return numberOfBombs;
 };
+
+
+
 
 /*
 This updated printBoard() function will accept a game board as a parameter,
@@ -96,7 +97,6 @@ iterate through each of its rows, join the individual elements in each row,
 and then join all rows together. It will return a brand new game board as
 a single string to be easily printed.
 */
-
 
 // Print out a board of any size
 const printBoard = board => {

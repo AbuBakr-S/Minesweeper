@@ -1,4 +1,4 @@
-// ### Section 1: Dynamically generate a player board ###
+// ### Dynamically generate a player board ###
 // 1) Create a game board of a specified size that will generate a blank board to hold the player's guesses
 // 2) Loop through nested arrays to access each column inside each row and add blanks
 // 3) Add the rows to the board
@@ -17,7 +17,7 @@ const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
 
 
 
-// ### Section 2: Dynamically generate bomb board ###
+// ### Dynamically generate bomb board ###
 // 1) Create the game board of the specified size that will hold the system generated bombs
 // 2) Loop through nested arrays to access each column inside each row
 // 3) Add the rows to the board
@@ -56,7 +56,7 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
 
 
 
-// ### Section 5: Check nearby bombs ###
+// ### Check nearby bombs ###
 // This will calculate the number of bombs next to the tile to be flipped at the given row and column on the provided bombBoard
 // Use these rowIndex and columnIndex offsets to check the surrounding tiles around a flipped tile
 // Go through each neighbourOffset and add ROW to our current Row and COLUMN to our current Column so we can check to see if there is or isn't a bomb there
@@ -68,18 +68,19 @@ const getNumberOfSurroundingBombs = (bombBoard, flipRow, flipColumn) => {
     [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]
   ];
 
-  const numberOfRows = bombBoard.length;    // To work out the number of rows, we can check the length of the top layer array. bombBoard(3,3) would have a length of 3
-  const numberOfColumns = bombBoard[0].length;    // The first element is a row, and the number of entries in a row represents the total number of columns
+  const numberOfRows = bombBoard.length;    // The array structure: [[row], [column]] bombBoard(3,3) would have a length of 3
+  const numberOfColumns = bombBoard[0].length;
   let numberOfSurroundingBombs = 0;    // Count the number of adjacent bombs to a flipped tile
 
   neighbourOffsets.forEach(offset => {    // Return the number of bombs in an adjacent neighbor
-    const neighbourRow = flipRow + offset[0];   // Go to current row and add offset to check neighbour tile
-    const neighbourColumn = flipColumn + offset[1];   // Go to current column and add offset to check neighbour tile
+    const neighbourRowIndex = flipRow + offset[0];   // Go to current row and add offset to check neighbour tile
+    const neighbourColumnIndex = flipColumn + offset[1];   // Go to current column and add offset to check neighbour tile
 
     // Check to see if row and column are valid tile values on the board. 0,0 is the first tile. -1, -1 offset does not exist for the first tile
-    if (neighbourRow >= 0 && neighbourRow < numberOfRows && neighbourColumn >= 0 && neighbourColumn < numberOfColumns){
+    // If neighbourRow = numberOfRows, it will increase the 0 index that's already off the board
+    if (neighbourRowIndex >= 0 && neighbourRowIndex < numberOfRows && neighbourColumnIndex >= 0 && neighbourColumnIndex < numberOfColumns){
       // Check if the tile at those indices (on the bombBoard) already contains a bomb ('B')
-      if (bombBoard[neighbourRow][neighbourColumn] === 'B'){
+      if (bombBoard[neighbourRowIndex][neighbourColumnIndex] === 'B'){
         numberOfSurroundingBombs++;
       }
     }
@@ -90,7 +91,7 @@ const getNumberOfSurroundingBombs = (bombBoard, flipRow, flipColumn) => {
 
 
 
-// ### Section 5: Add flipTile()
+// ### Add flipTile() ###
 /*
 Aim: To allow the player to flip a tile and to update that tile accordingly
 
@@ -115,7 +116,7 @@ const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
 
 
 
-// ### Section 3: Print Board ###
+// ### Print Board ###
 /*
   This updated printBoard() function will accept a game board as a parameter,
   iterate through each of its rows, join the individual elements in each row,
@@ -133,13 +134,13 @@ const printBoard = board => {
 
 
 
-// ### Section 4: Create Both Boards ###
+// ### Create Both Boards ###
 let playerBoard = generatePlayerBoard(3, 3);
 let bombBoard = generateBombBoard(3, 3, 3);
 
 
 
-// ### Section 5: Print both boards
+// ### Print both boards ###
 console.log('Player Board: ');
 printBoard(playerBoard);
 
@@ -148,7 +149,7 @@ console.log('Bomb Board: ');
 // Additionally, printing bombBoard will not look clean due to use of null instead of ' ' - this should just be for debugging, not presentation
 printBoard(bombBoard);
 
-// ### Section 7: Use Flip Tile
+// ### Use Flip Tile ###
 // Flip the tile at location [0,0] on the player board, and also check the bomb board for bombs at the location
 flipTile(playerBoard, bombBoard, 0, 0);
 console.log('Updated Player Board:');

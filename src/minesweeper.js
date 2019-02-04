@@ -124,13 +124,10 @@ const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
   a single string to be easily printed.
 */
 
-// Join together each element in each row with ' | ' to create a well-formated row
-// Then join together each row with '\n' to print each row on its own line
+// Join together each element in each row with ' | ' to create a well-formated row, then join together each row with '\n' to print each row on its own line
 const printBoard = board => {
- console.log(board.map(row => row.join(' | ')).join('\n'));  // Callback function with 'row' as param
+ console.log(board.map(row => row.join(' | ')).join('\n'));  // Callback function with 'row' as param. This .map() call will now return an array of formatted rows
 };
-
-// This .map() call will now return an array of formatted rows
 
 
 

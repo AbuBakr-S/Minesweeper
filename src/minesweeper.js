@@ -3,7 +3,7 @@ class Board {
   // When a user creates an instance of a board (using the constructor), they will need to specify the size of the board as well as the number of bombs on the board (which is what the parameters represent)
   constructor(numberOfRows, numberOfColumns, numberOfBombs){
     this._numberOfBombs = numberOfBombs;    // Set an instance's property which should not be accessed / modified directly
-    this._numnberOfTiles = (numberOfRows * numberOfColumns);    // Represent the size of the game board. Will be used to determine whether the game is over at the end of each turn
+    this._numberOfTiles = (numberOfRows * numberOfColumns);    // Represent the size of the game board. Will be used to determine whether the game is over at the end of each turn
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);   // Call the generatePlayerBoard() function on Board Class
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);    //
   }
@@ -11,6 +11,29 @@ class Board {
   get playerBoard() {
     return this._playerBoard;
   }
+
+  // ### Add flipTile() ###
+  // Aim: To allow the player to flip a tile and to update that tile accordingly
+
+  /* The function should explicitly check for two things:
+  1) If the specified tile has already been flipped
+  2) If the specified tile has a bomb in it
+  Otherwise, that tile should be updated with the number of neighboring bombs */
+
+  flipTile = (rowIndex, columnIndex) => {
+    // Check if tile is already flipped (blank space is initial state). If so, return
+    if (this._playerBoard[rowIndex][columnIndex] !== ' '){
+      console.log('This tile has already been flipped!');
+      return;
+    //Check if tile is bomb. If so, place bomb on player board
+    } else if (this._bombBoard[rowIndex][columnIndex] === 'B'){
+      this._playerBoard[rowIndex][columnIndex] = 'B';
+    } else {
+    // Otherwise, display number of surrounding bombs on player board
+      this._playerBoard[rowIndex][columnIndex] = this.getNumberOfSurroundingBombs(rowIndex, columnIndex);
+    }
+    this._numberOfTiles--;
+  };
 
 }
 
@@ -107,31 +130,6 @@ const getNumberOfSurroundingBombs = (bombBoard, flipRow, flipColumn) => {
   });
 
   return numberOfSurroundingBombs;   // Return number of bombs surrounding every neighbour
-};
-
-
-
-// ### Add flipTile() ###
-/*
-Aim: To allow the player to flip a tile and to update that tile accordingly
-
-The function should explicitly check for two things:
-1) If the specified tile has already been flipped
-2) If the specified tile has a bomb in it
-Otherwise, that tile should be updated with the number of neighboring bombs
-*/
-const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
-  // Check if tile is already flipped (blank space is initial state). If so, return
-  if (playerBoard[rowIndex][columnIndex] !== ' '){
-    console.log('This tile has already been flipped!');
-    return;
-  //Check if tile is bomb. If so, place bomb on player board
-  } else if (bombBoard[rowIndex][columnIndex] === 'B'){
-    playerBoard[rowIndex][columnIndex] = 'B';
-  } else {
-  // Otherwise, display number of surrounding bombs on player board
-    playerBoard[rowIndex][columnIndex] = getNumberOfSurroundingBombs(bombBoard, rowIndex, columnIndex);
-  }
 };
 
 

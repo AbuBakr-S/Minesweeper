@@ -7,6 +7,11 @@ class Board {
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);   // Call the generatePlayerBoard() function on Board Class
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);    //
   }
+
+  get playerBoard() {
+    return this._playerBoard;
+  }
+
 }
 
 

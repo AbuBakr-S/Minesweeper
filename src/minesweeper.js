@@ -1,3 +1,24 @@
+class Board {
+  // To use this class as an object later, we'll need to add a constructor for the class
+  // When a user creates an instance of a board (using the constructor), they will need to specify the size of the board as well as the number of bombs on the board (which is what the parameters represent)
+}
+  constructor(numberOfRows, numberOfColumns, numberOfBombs){
+    this._numberOfBombs = numberOfBombs;    // Set an instance's property which should not be accessed / modified directly
+    this._numnberOfTiles = (numberOfRows * numberOfColumns);    // Represent the size of the game board. Will be used to determine whether the game is over at the end of each turn
+    this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);   // Call the generatePlayerBoard() function on Board
+    this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);    //
+}
+
+
+
+
+
+
+
+
+
+
+
 // ### Dynamically generate a player board ###
 // 1) Create a game board of a specified size that will generate a blank board to hold the player's guesses
 // 2) Loop through nested arrays to access each column inside each row and add blanks

@@ -8,6 +8,15 @@ class Game {
   //  Include all of the functionality needed to play a session of Minesweeper, including flipping a tile, letting the user know if they discovered a bomb, and allowing a user to continue otherwise (until they win, or lose)
   playMove(rowIndex, columnIndex){
     this._board.flipTile(rowIndex, columnIndex);
+    if(this._board[rowIndex][columnIndex] === 'B'){
+      console.log('BOOM! You hit a Mine. Game Over!');
+      this.board.print();
+    } else if(this._board.hasSafeTiles()){   // if a board doesn't have any safe tiles left on it, then the user has won. True = Continue, False = End
+      console.log('CONGRATULATIONS! You\'ve cleared the minefield.');
+    } else {
+      console.log('Current Board:');
+      this._board.print();
+    }
   }
 
 }
@@ -62,9 +71,10 @@ class Board {
   }
 
   // Check for safe tiles
-  // A user wins when there are no non-bomb ("safe") tiles remaining to be flipped.
-  // Check numnberOfTiles vs numberOfBombs. If they're both equal, player wins! i.e. There are no more safe tiles on the board. Otherwise, continue playing
+  // A user wins when there are no non-bomb ("safe") tiles remaining to be flipped
+  // Check numberOfTiles vs numberOfBombs. If they're both equal, player wins! i.e. There are no more safe tiles on the board. Otherwise, continue playing
   hasSafeTiles(){
+    // If true, Game continues
     return this._numberOfTiles !== numberOfBombs;   // Truthy, doesn't require if statement
   }
 

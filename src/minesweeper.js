@@ -47,9 +47,10 @@ class Board {
   }
 
   // Check for safe tiles
-  // A user wins when there are no non-bomb ("safe") tiles remaining to be flipped
+  // A user wins when there are no non-bomb ("safe") tiles remaining to be flipped.
+  // Check numnberOfTiles vs numberOfBombs. If they're both equal, player wins! i.e. There are no more safe tiles on the board. Otherwise, continue playing
   hasSafeTiles() {
-
+    return this._numberOfTiles !== numberOfBombs;   // Truthy, doesn't require if statement
   }
 
   // ### Add flipTile() ###

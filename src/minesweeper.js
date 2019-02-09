@@ -1,3 +1,18 @@
+class Game {
+  // When a user creates an instance of a board (using the constructor), they will be asked to specify the size of the board as well as the number of bombs on the board (which is what the parameters represent)
+  constructor(numberOfRows, numberOfColumns, numberOfBombs){    // To use this class later (as an object), we'll need to add a constructor for the class
+    //  _board will be used to call Board methods on it
+    this._board = Board(numberOfRows, numberOfColumns, numberOfBombs);  // To call Board methods, we'll have to create an instance of a Board inside of the Game constructor
+  }
+
+  //  Include all of the functionality needed to play a session of Minesweeper, including flipping a tile, letting the user know if they discovered a bomb, and allowing a user to continue otherwise (until they win, or lose)
+  playMove(rowIndex, columnIndex){
+    this._board.flipTile(rowIndex, columnIndex);
+  }
+
+}
+
+
 class Board {
   // To use this class as an object later, we'll need to add a constructor for the class
   // When a user creates an instance of a board (using the constructor), they will need to specify the size of the board as well as the number of bombs on the board (which is what the parameters represent)
@@ -9,7 +24,7 @@ class Board {
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);    //Call the function on the Board Class directly
   }
 
-  get playerBoard() {
+  get playerBoard(){
     return this._playerBoard;
   }
 
@@ -19,7 +34,7 @@ class Board {
   // Go through each neighbourOffset and add ROW to our current Row and COLUMN to our current Column so we can check to see if there is or isn't a bomb there
   // Iterate through each nested array in neighbourOffsets | ROW/COLUMN
 
-  getNumberOfSurroundingBombs(flipRow, flipColumn) {
+  getNumberOfSurroundingBombs(flipRow, flipColumn){
     // These represent all the possible offset combintations of neighboring tiles. [-1, 1] means 1 tile above and 1 tile right. These will be +/- from [row, column]
     const neighbourOffsets = [
       [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]
@@ -49,7 +64,7 @@ class Board {
   // Check for safe tiles
   // A user wins when there are no non-bomb ("safe") tiles remaining to be flipped.
   // Check numnberOfTiles vs numberOfBombs. If they're both equal, player wins! i.e. There are no more safe tiles on the board. Otherwise, continue playing
-  hasSafeTiles() {
+  hasSafeTiles(){
     return this._numberOfTiles !== numberOfBombs;   // Truthy, doesn't require if statement
   }
 
@@ -61,7 +76,7 @@ class Board {
   2) If the specified tile has a bomb in it
   Otherwise, that tile should be updated with the number of neighboring bombs */
 
-  flipTile(rowIndex, columnIndex) {
+  flipTile(rowIndex, columnIndex){
     // Check if tile is already flipped (blank space is initial state). If so, return
     if (this._playerBoard[rowIndex][columnIndex] !== ' '){
       console.log('This tile has already been flipped!');
@@ -86,7 +101,7 @@ class Board {
   */
 
   // Join together each element in each row with ' | ' to create a well-formated row, then join together each row with '\n' to print each row on its own line
-  print() {
+  print(){
    console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'));  // Callback function with 'row' as param. This .map() call will now return an array of formatted rows
   }
 
@@ -97,7 +112,7 @@ class Board {
   // 3) Add the rows to the board
 
   // Static methods, not instance: We only need one version of this. Every instance of Board does not need a copy of this
-  static generatePlayerBoard(numberOfRows, numberOfColumns) {
+  static generatePlayerBoard(numberOfRows, numberOfColumns){
     const board = [];
     for (let rowIndex = 0; rowIndex < numberOfRows; rowIndex++){
       const row = [];
@@ -119,7 +134,7 @@ class Board {
      6) Check for duplicates */
 
   // Static methods, not instance: We only need one version of this. Every instance of Board does not need a copy of this
-  static generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs) {
+  static generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs){
     const board = [];
     for (let rowIndex = 0; rowIndex < numberOfRows; rowIndex++){
       const row = [];

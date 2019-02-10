@@ -2,23 +2,22 @@ class Game {
   // When a user creates an instance of a board (using the constructor), they will be asked to specify the size of the board as well as the number of bombs on the board (which is what the parameters represent)
   constructor(numberOfRows, numberOfColumns, numberOfBombs){    // To use this class later (as an object), we'll need to add a constructor for the class
     //  _board will be used to call Board methods on it
-    this._board = Board(numberOfRows, numberOfColumns, numberOfBombs);  // To call Board methods, we'll have to create an instance of a Board inside of the Game constructor
+    this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);  // To call Board methods, we'll have to create an instance of a Board inside of the Game constructor
   }
 
   //  Include all of the functionality needed to play a session of Minesweeper, including flipping a tile, letting the user know if they discovered a bomb, and allowing a user to continue otherwise (until they win, or lose)
   playMove(rowIndex, columnIndex){
     this._board.flipTile(rowIndex, columnIndex);
-    if(this._board[rowIndex][columnIndex] === 'B'){
-      console.log('BOOM! You hit a Mine. Game Over!');
-      this.board.print();
-    } else if(this._board.hasSafeTiles()){   // if a board doesn't have any safe tiles left on it, then the user has won. True = Continue, False = End
-      console.log('CONGRATULATIONS! You\'ve cleared the minefield.');
+    if(this._board.playerBoard[rowIndex][columnIndex] === 'B'){
+      console.log('Game Over! Final Board:');
+      this._board.print();
+    } else if(!this._board.hasSafeTiles()){   // if a board doesn't have any safe tiles left on it, then the user has won. True = Continue, False = End
+      console.log('Congratulations, you won!');
     } else {
       console.log('Current Board:');
       this._board.print();
     }
   }
-
 }
 
 
@@ -33,9 +32,35 @@ class Board {
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);    //Call the function on the Board Class directly
   }
 
+  // Return an instance's playerBoard
   get playerBoard(){
     return this._playerBoard;
   }
+
+
+  // ### Add flipTile() ###
+  // Aim: To allow the player to flip a tile and to update that tile accordingly
+
+  /* The function should explicitly check for two things:
+  1) If the specified tile has already been flipped
+  2) If the specified tile has a bomb in it
+  Otherwise, that tile should be updated with the number of neighboring bombs */
+
+  flipTile(rowIndex, columnIndex){
+    // Check if tile is already flipped (blank space is initial state). If so, return
+    if (this._playerBoard[rowIndex][columnIndex] !== ' '){
+      console.log('This tile has already been flipped!');
+      return;
+    //Check if tile is bomb. If so, place bomb on player board
+    } else if (this._bombBoard[rowIndex][columnIndex] === 'B'){
+      this._playerBoard[rowIndex][columnIndex] = 'B';
+    } else {
+    // Otherwise, display number of surrounding bombs on player board
+      this._playerBoard[rowIndex][columnIndex] = this.getNumberOfSurroundingBombs(rowIndex, columnIndex);
+    }
+    this._numberOfTiles--;
+  }
+
 
   // ### Check nearby bombs ###
   // This will calculate the number of bombs next to the tile to be flipped at the given row and column on the provided bombBoard
@@ -75,30 +100,7 @@ class Board {
   // Check numberOfTiles vs numberOfBombs. If they're both equal, player wins! i.e. There are no more safe tiles on the board. Otherwise, continue playing
   hasSafeTiles(){
     // If true, Game continues
-    return this._numberOfTiles !== numberOfBombs;   // Truthy, doesn't require if statement
-  }
-
-  // ### Add flipTile() ###
-  // Aim: To allow the player to flip a tile and to update that tile accordingly
-
-  /* The function should explicitly check for two things:
-  1) If the specified tile has already been flipped
-  2) If the specified tile has a bomb in it
-  Otherwise, that tile should be updated with the number of neighboring bombs */
-
-  flipTile(rowIndex, columnIndex){
-    // Check if tile is already flipped (blank space is initial state). If so, return
-    if (this._playerBoard[rowIndex][columnIndex] !== ' '){
-      console.log('This tile has already been flipped!');
-      return;
-    //Check if tile is bomb. If so, place bomb on player board
-    } else if (this._bombBoard[rowIndex][columnIndex] === 'B'){
-      this._playerBoard[rowIndex][columnIndex] = 'B';
-    } else {
-    // Otherwise, display number of surrounding bombs on player board
-      this._playerBoard[rowIndex][columnIndex] = this.getNumberOfSurroundingBombs(rowIndex, columnIndex);
-    }
-    this._numberOfTiles--;
+    return this._numberOfTiles !== this._numberOfBombs;   // Truthy, doesn't require if statement
   }
 
 
@@ -170,11 +172,11 @@ class Board {
     }
 
     return board;
-  };
+  }
 
 }
 
-
+/*
 const board = new Board(3, 3, 4);
 console.log('Current Board: ');
 board.print();
@@ -182,3 +184,7 @@ board.print();
 board.flipTile(1, 1);
 console.log('Updated Board: ');
 board.print();
+*/
+
+const g = new Game(3, 3, 3);
+g.playMove(0, 0);
